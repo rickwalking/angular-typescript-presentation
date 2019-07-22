@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Angular e Typescript: Dicas e Boas Práticas</title>
 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/theme/blood.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/monokai.css">
@@ -25,8 +25,194 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>test 2</section>
+				<section>
+					<h1>Angular e Typescript:</h1>
+					<h3>Dicas e Boas Práticas</h3>
+					<p>
+						<small>Por: <a href="https://github.com/rickwalking" target="_blank">Pedro Marins</a></small>
+					</p>
+				</section>
+				<section>
+					<h2>Palestrante:</h2>
+					<div class="d-flex" style="justify-content: space-between">
+						<img data-src="https://avatars2.githubusercontent.com/u/25574889?s=460&v=4" />
+						<ul>
+							<li><b>Nome:</b> Pedro Marins</li>
+							<li><b>Idade:</b> 26 anos</li>
+							<li><b>Desenvolvedor Front-End na empresa <a href="https://beta.meupatrocinio.com" target="_blank">MeuPatrocinio.</a></b></li>
+						</ul>
+                    </div>
+				</section>
+				<section>
+					<h2>Assuntos de hoje:</h2>
+					<ul>
+						<li>teste...</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Variáveis</h2>
+					<p>Nome de variáveis devem ser claras, evitando que seja necessário adivinhar o que siginificam:</p>
+					<pre><code class="hljs" data-trim>
+						//bad
+
+						const ac = 10;
+
+						dateEnd = 1563843263000;
+
+						let open = true;
+
+						let valueRemovedFromMainLoopWhereIsHighterThanTen = this.getHighterNumber();
+
+						//good 
+
+						const accountNumber = 10;
+
+						couponEndDateTimestamp = 1563843263000;
+
+						isOpen = true;
+
+						const highestNumber = this.getHighterNumber();
+					</code></pre>
+				</section>
+				<section>
+					<h2>Funções...parte 1</h2>
+					<p>Nome de funções usam verbos. Quando significam alguma ação, devem dizer claramente a ação.</p>
+					<pre><code class="hljs" data-trim>
+						//bad
+
+						userData();
+
+						//this function get the total Items
+						totalItems();
+
+
+						//good 
+
+						getUserData();
+
+						calculateTotal();
+
+						//TODO: create carService
+						purchaseCar();
+					</code></pre>
+				</section>
+				<section>
+						<h2>Funções...parte 2</h2>
+						<p>Funções devem ter no máximo 3 argumentos, prefira passar um objeto ou rest parameters</p>
+						<pre><code class="hljs" data-trim>
+							//bad
+
+							updateHeroProfile(firstName: string, lastName: string, dateOfBirth: number, city: string, power: number) {
+								this.heroesService.updateHeroProfile(firstName, lastName, dateOfBirth, city, power).subscribe((hero: any) => {
+									this.updateHeroes();
+								});
+							}
+
+							//good
+
+							updateHeroProfile(hero: IHero) {
+								this.heroesService.updateHeroProfile(hero.firstName, hero.lastName, hero.dateOfBirth, hero.city, hero.power).subscribe((response: IHero) => {
+									this.updateHeroes();
+								});
+							}
+
+						</code></pre>
+				</section>
+				<section>
+						<h2>Funções...parte 3</h2>
+						<p>Funções devem fazer somente uma coisa</p>
+						<pre><code class="hljs" data-trim>
+							//bad
+							increaseHeroPower(hero: Hero, power: number) {
+								hero.power = power;
+
+								if (hero.category = 'knight') {
+									hero.category = 'Elite Knight';
+								}
+							}
+
+							//good
+							increaseHeroPower(hero: Hero, power: number) {
+								hero.power = power;
+							}
+
+							changeHeroCategory(hero: Hero) {
+								if (hero.category === 'knight') {
+									hero.category = 'Elite Knight';
+								}
+							}
+						</code></pre>
+				</section>
+				<section>
+						<h2>Funções...parte 4</h2>
+						<p>Quebrar condicionais</p>
+						<pre><code class="hljs" data-trim>
+							//bad
+
+							if (hero.isNew && hero.premium && hero.sex === 0) {
+								//
+							}
+
+							//good
+
+							if (canUpdateHero()) {
+
+							}
+							
+						</code></pre>
+				</section>
+				<section>
+						<h2>Funções...parte 5</h2>
+						<p>Return type de acordo com a função, usar void se não houver retorno</p>
+						<pre><code class="hljs" data-trim>
+							//bad
+							getUserFullName() {
+								return user.fullName;
+							}
+
+							getUserAccountNumber() {
+								return user.age;
+							}
+
+							//good
+							getUserFullName(): string {
+								return user.fullName;
+							}
+
+							getUserAccountNumber(): number {
+								return user.age;
+							}
+
+							setHeroName(name: string): void {
+								this.hero.name = name;
+							}
+							
+						</code></pre>
+				</section>
+				<section>
+						<h2>Funções...parte 5</h2>
+						<p>Return type de acordo com a função, usar void se não houver retorno</p>
+						<pre><code class="hljs" data-trim>
+							//bad
+							getUserFullName() {
+								return user.fullName;
+							}
+
+							getUserAccountNumber() {
+								return user.age;
+							}
+
+							//good
+							getUserFullName(): string {
+								return user.fullName;
+							}
+
+							getUserAccountNumber(): number {
+								return user.age;
+							}
+							
+						</code></pre>
+				</section>
 			</div>
 		</div>
 
