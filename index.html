@@ -50,168 +50,326 @@
 					</ul>
 				</section>
 				<section>
-					<h2>Variáveis</h2>
-					<p>Nome de variáveis devem ser claras, evitando que seja necessário adivinhar o que siginificam:</p>
-					<pre><code class="hljs" data-trim>
-						//bad
-
-						const ac = 10;
-
-						dateEnd = 1563843263000;
-
-						let open = true;
-
-						let valueRemovedFromMainLoopWhereIsHighterThanTen = this.getHighterNumber();
-
-						//good 
-
-						const accountNumber = 10;
-
-						couponEndDateTimestamp = 1563843263000;
-
-						isOpen = true;
-
-						const highestNumber = this.getHighterNumber();
-					</code></pre>
-				</section>
-				<section>
-					<h2>Funções...parte 1</h2>
-					<p>Nome de funções usam verbos. Quando significam alguma ação, devem dizer claramente a ação.</p>
-					<pre><code class="hljs" data-trim>
-						//bad
-
-						userData();
-
-						//this function get the total Items
-						totalItems();
-
-
-						//good 
-
-						getUserData();
-
-						calculateTotal();
-
-						//TODO: create carService
-						purchaseCar();
-					</code></pre>
-				</section>
-				<section>
-						<h2>Funções...parte 2</h2>
-						<p>Funções devem ter no máximo 3 argumentos, prefira passar um objeto ou rest parameters</p>
+					<section>
+						<h2>Variáveis</h2>
+						<p>Nome de variáveis devem ser claras, evitando que seja necessário adivinhar o que siginificam:</p>
+					</section>
+					<section>
 						<pre><code class="hljs" data-trim>
 							//bad
-
+	
+							const ac = 10;
+	
+							dateEnd = 1563843263000;
+	
+							let open = true;
+	
+							let valueRemovedFromMainLoopWhereIsHighterThanTen = this.getHighterNumber();
+	
+							//good 
+	
+							const accountNumber = 10;
+	
+							couponEndDateTimestamp = 1563843263000;
+	
+							let isOpen = true;
+							const hasAcess = false;
+							const canActivateCard = true;
+	
+							const highestNumber = this.getHighterNumber();
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Funções</h2>
+						<p>Nome de funções usam verbos. Quando significam alguma ação, devem dizer claramente a ação.</p>
+					</section>
+					<section>
+						<pre><code class="hljs" data-trim>
+							//bad
+	
+							userData();
+	
+							//this function get the total Items
+							totalItems();
+	
+	
+							//good
+	
+							getUserData();
+	
+							calculateTotal();
+	
+							//TODO: create carService
+							purchaseCar();
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Funções...parte 2</h2>
+						<p>Funções devem ter no máximo 3 argumentos, prefira passar um objeto ou rest parameters</p>
+					</section>
+					<section>
+						<pre><code class="hljs" data-trim>
+							//bad
+	
 							updateHeroProfile(firstName: string, lastName: string, dateOfBirth: number, city: string, power: number) {
 								this.heroesService.updateHeroProfile(firstName, lastName, dateOfBirth, city, power).subscribe((hero: any) => {
 									this.updateHeroes();
 								});
 							}
-
+	
 							//good
-
+	
 							updateHeroProfile(hero: IHero) {
 								this.heroesService.updateHeroProfile(hero.firstName, hero.lastName, hero.dateOfBirth, hero.city, hero.power).subscribe((response: IHero) => {
 									this.updateHeroes();
 								});
 							}
-
+		
 						</code></pre>
+					</section>
+					<section>
+						<pre><code class="hljs" data-trim>
+							function iTakeItAllArguments(firstArgument, secondArgument, ...allOthers) {
+								console.log(allOthers);
+							}
+							iTakeItAllArguments('teste1', 'teste2', 'teste3', 'teste4'); // ['teste3','teste4']
+						</code></pre>
+					</section>
 				</section>
 				<section>
+					<section>
 						<h2>Funções...parte 3</h2>
 						<p>Funções devem fazer somente uma coisa</p>
+					</section>
+					<section>
 						<pre><code class="hljs" data-trim>
 							//bad
-							increaseHeroPower(hero: Hero, power: number) {
-								hero.power = power;
+							renameHero(name: string, power: number): void {
+								this.hero.name = name;
 
-								if (hero.category = 'knight') {
-									hero.category = 'Elite Knight';
+								if (this.hero.power > 5) {
+									this.hero.power +=10;
 								}
 							}
-
+	
 							//good
-							increaseHeroPower(hero: Hero, power: number) {
-								hero.power = power;
+							renameHero(name: string): void {
+								this.hero.name = name;
 							}
-
-							changeHeroCategory(hero: Hero) {
-								if (hero.category === 'knight') {
-									hero.category = 'Elite Knight';
-								}
+	
+							changeHeroPower(power: number): void {
+								this.hero.power += power;
 							}
 						</code></pre>
+					</section>
 				</section>
 				<section>
+					<section>
 						<h2>Funções...parte 4</h2>
 						<p>Quebrar condicionais</p>
+					</section>
+					<section>
 						<pre><code class="hljs" data-trim>
 							//bad
-
+	
 							if (hero.isNew && hero.premium && hero.sex === 0) {
 								//
 							}
+	
+							//good
+	
+							if (canUpdateHero()) {
+	
+							}
+								
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Funções...parte 5</h2>
+						<p>Evite usar else</p>
+					</section>
+					<section>
+						<pre><code class="hljs" data-trim>
+							//bad
+
+							if (statusActive == true && heroValue > 10) {
+								return true;
+							} else {
+								return flase;
+							}
 
 							//good
 
-							if (canUpdateHero()) {
-
-							}
-							
+							return statusActive && heroValue > 10;
 						</code></pre>
+					</section>
 				</section>
 				<section>
-						<h2>Funções...parte 5</h2>
+					<section>
+						<h2>Funções...parte 6</h2>
 						<p>Return type de acordo com a função, usar void se não houver retorno</p>
+					</section>
+					<section>
 						<pre><code class="hljs" data-trim>
 							//bad
 							getUserFullName() {
 								return user.fullName;
 							}
-
+	
 							getUserAccountNumber() {
 								return user.age;
 							}
-
+	
 							//good
 							getUserFullName(): string {
 								return user.fullName;
 							}
-
+	
 							getUserAccountNumber(): number {
 								return user.age;
 							}
-
+	
 							setHeroName(name: string): void {
 								this.hero.name = name;
 							}
 							
 						</code></pre>
+					</section>
 				</section>
 				<section>
-						<h2>Funções...parte 5</h2>
+					<section>
+						<h2>Funções...parte 7</h2>
 						<p>Return type de acordo com a função, usar void se não houver retorno</p>
+					</section>
+					<section>
 						<pre><code class="hljs" data-trim>
 							//bad
 							getUserFullName() {
 								return user.fullName;
 							}
-
+	
 							getUserAccountNumber() {
 								return user.age;
 							}
-
+	
 							//good
 							getUserFullName(): string {
 								return user.fullName;
 							}
-
+	
 							getUserAccountNumber(): number {
 								return user.age;
-							}
-							
+							}	
 						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Interfaces</h2>
+						<p>Use para que o type checking seja focado no shape do valor</p>
+					</section>
+					<section>
+						<pre><code  class="hljs" data-trim>
+							export interface IHero {
+								id: number;
+								name: string;
+							}
+
+							public hero: Hero;
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Evite usar any!</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Tslint...</h2>
+						<p><a href="https://palantir.github.io/tslint/" target="_blank">https://palantir.github.io/tslint/</a></p>
+					</section>
+					<section>
+						<h2>Algumas boas regras:</h2>
+						<ul>
+							<li><a href="https://palantir.github.io/tslint/rules/no-magic-numbers/">no-magic-numbers</a></li>
+							<li><a href="https://palantir.github.io/tslint/rules/no-any/">no-any</a></li>
+							<li><a href="https://palantir.github.io/tslint/rules/no-console/">no-console</a></li>
+							<li><a href="https://palantir.github.io/tslint/rules/no-console/">typedef</a></li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h2>Angular</h2>
+				</section>
+				<section>
+					<section>
+						<h2>Reutilizar componentes</h2>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							```
+							<app-header></app-header>
+							<router-outlet></router-outlet>
+							<app-footer></app-footer>
+							```
+						</script>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Evitar usar diretivas com lógica confusa no template</h2>
+					</section>
+					<section>
+						<section data-markdown>
+							<script type="text/template">
+								```
+								//bad
+								<div *ngIf="user !== undefined && isHeroActive() && hasPaymentsMade()"></div>
+
+								//good
+								<div *ngIf="isPermittedHero()"></div>
+								```
+							</script>
+						</section>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Usar trackBy quando for utilizar um ngFor</h2>
+					</section>
+					<section>
+						<pre><code class="hljs" data-trim>
+							//template
+							<li *ngFor="let item of getItems(); trackBy: trackByFn">{{ item }}</li>
+
+							//componente
+							trackByFn(index, item) {    
+								return item.id;
+							}
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Não esquecer de dar unsubscribe das subscriptions do componente</h2>
+					</section>
+					<section>
+						<pre><code  class="hljs" data-trim>
+							ngOnDestroy(): void {
+								//one subscription
+								$heroSubscription.unsubscribe();
+
+								this.subscriptions.map((subscription) => subscription.unsubscribe());
+							}
+						</code></pre>
+					</section>
 				</section>
 			</div>
 		</div>
