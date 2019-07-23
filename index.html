@@ -46,13 +46,16 @@
 				<section>
 					<h2>Assuntos de hoje:</h2>
 					<ul>
-						<li><b>Typescript:</b>
-							<ul>
-								<li>Variáveis</li>
-								<li>Funções</li>
-								<li>Interfaces</li>
-							</ul>
-						</li>
+						<li>Variáveis</li>
+						<li>Funções</li>
+						<li>Interfaces</li>
+						<li>Evite utilizar any</li>
+						<li>Tslint</li>
+						<li>Small components</li>
+						<li>Diretivas</li>
+						<li>ngFor com trackBy</li>
+						<li>Unsubscribe</li>
+						<li>Async pipe</li>
 					</ul>
 				</section>
 				<section>
@@ -64,25 +67,25 @@
 						<pre><code class="hljs" data-trim>
 							//bad
 	
-							const ac = 10;
+							const ac: number = 10;
 	
-							dateEnd = 1563843263000;
+							let dateEnd: number = 1563843263000;
 	
-							let open = true;
+							let open: boolean = true;
 	
-							let valueRemovedFromMainLoopWhereIsHighterThanTen = this.getHighterNumber();
+							let valueRemovedFromMainLoopWhereIsHighterThanTen: number = this.getHighterNumber();
 	
 							//good 
 	
 							const accountNumber = 10;
 	
-							couponEndDateTimestamp = 1563843263000;
+							couponEndDateTimestamp: number = 1563843263000;
 	
-							let isOpen = true;
-							const hasAcess = false;
-							const canActivateCard = true;
+							let isOpen: boolean = true;
+							const hasAcess: boolean = false;
+							const canActivateCard: boolean = true;
 	
-							const highestNumber = this.getHighterNumber();
+							const highestNumber: number = this.getHighterNumber();
 						</code></pre>
 					</section>
 				</section>
@@ -315,7 +318,7 @@
 				</section>
 				<section>
 					<section>
-						<h2>Reutilizar componentes</h2>
+						<h2>Small components</h2>
 					</section>
 					<section data-markdown>
 						<script type="text/template">
@@ -360,7 +363,7 @@
 				</section>
 				<section>
 					<section>
-						<h2>Evitar usar diretivas com lógica confusa no template</h2>
+						<h2>Diretivas: evitar utilizar com lógica confusa no template</h2>
 					</section>
 					<section>
 						<section data-markdown>
@@ -413,7 +416,7 @@
 				</section>
 				<section>
 					<section>
-						<h2>Utilizar Async Pipes</h2>
+						<h2>Async Pipes</h2>
 					</section>
 					<section>
 						<pre><code class="hljs" data-trim>
