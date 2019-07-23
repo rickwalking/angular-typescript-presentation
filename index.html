@@ -46,7 +46,13 @@
 				<section>
 					<h2>Assuntos de hoje:</h2>
 					<ul>
-						<li>teste...</li>
+						<li><b>Typescript:</b>
+							<ul>
+								<li>Variáveis</li>
+								<li>Funções</li>
+								<li>Interfaces</li>
+							</ul>
+						</li>
 					</ul>
 				</section>
 				<section>
@@ -302,6 +308,8 @@
 							<li><a href="https://palantir.github.io/tslint/rules/no-any/">no-any</a></li>
 							<li><a href="https://palantir.github.io/tslint/rules/no-console/">no-console</a></li>
 							<li><a href="https://palantir.github.io/tslint/rules/no-console/">typedef</a></li>
+							<li><a href="https://github.com/Glavin001/tslint-clean-code">Clean Code</a></li>
+							<li><a href="https://www.npmjs.com/package/codelyzer">Codelyzer for Angular and Typescript</a></li>
 						</ul>
 					</section>
 				</section>
@@ -311,6 +319,37 @@
 				<section>
 					<section>
 						<h2>Reutilizar componentes</h2>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							```
+							<nav class="navbar navbar-expand-lg navbar-primary bg-primary mh-100 mw-100 shadow-sm sticky-top">
+								<a class="navbar-brand" href="#">Fitness Tracker</a>
+								<button class="navbar-toggler" type="button" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+								<div class="collapse navbar-collapse" [ngbCollapse]="isCollapse">
+									<ul class="navbar-nav mr-auto">
+										<li class="nav-item active">
+											<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="#">Features</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="#">Pricing</a>
+										</li>
+									</ul>
+									<form class="form-inline">
+										<input class="form-control mr-sm-2 shadow" type="search" placeholder="Search Trainings" aria-label="Search">
+										<button class="btn btn-success my-2 my-sm-0">Search</button>
+									</form>
+								</div>
+							</nav>
+							<router-outlet></router-outlet>
+							<app-footer></app-footer>
+							```
+						</script>
 					</section>
 					<section data-markdown>
 						<script type="text/template">
@@ -333,8 +372,12 @@
 								//bad
 								<div *ngIf="user !== undefined && isHeroActive() && hasPaymentsMade()"></div>
 
+								<section [ngClass]="{ 'class1': isAvailable, 'class2': hasPremiumAccount, 'class3': isDeleted }" >
+
 								//good
 								<div *ngIf="isPermittedHero()"></div>
+
+								<section [ngClass]="getConditionalClass()"></section>
 								```
 							</script>
 						</section>
@@ -369,6 +412,31 @@
 								this.subscriptions.map((subscription) => subscription.unsubscribe());
 							}
 						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Utilizar Async Pipes</h2>
+					</section>
+					<section>
+						<pre><code class="hljs" data-trim>
+							this.textHeader$ = textObservable
+							.pipe(
+								map(value => value.item)
+							);
+						</code></pre>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							```
+							<div {{ textHeader$ | async }}></div>
+							```
+						</script>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Obrigado</h2>
 					</section>
 				</section>
 			</div>
